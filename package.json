@@ -1,0 +1,22 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "terminal application to generate team profile",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daman29/Team-Profile-Generator.git"
+  },
+  "author": "daman29",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daman29/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/daman29/Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
