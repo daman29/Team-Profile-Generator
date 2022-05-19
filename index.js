@@ -5,7 +5,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const card = require("./lib/CreateCard");
-const HTML = require("./lib/CreateHTML")
+const HTML = require("./lib/CreateHTML");
 
 const employees = [];
 
@@ -85,7 +85,7 @@ const employeeMenu = () => {
       if (response.type === "Finish") {
         console.log("team finished");
         console.log(employees);
-        buildHtml()
+        buildHtml();
       } else {
         createEmployee(response.type);
       }
@@ -130,31 +130,45 @@ const createEmployee = (employeeType) => {
     ])
     .then((response) => {
       if (employeeType === "Engineer") {
-        inquirer.prompt([
-          {
-            type: "input",
-            name: "github",
-            message: "Please enter their GitHub username: ",
-          },
-        ]).then((result) => {            
-            const engineer = new Engineer(response.name, response.id, response.email, result.github)
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "github",
+              message: "Please enter their GitHub username: ",
+            },
+          ])
+          .then((result) => {
+            const engineer = new Engineer(
+              response.name,
+              response.id,
+              response.email,
+              result.github
+            );
 
-            employees.push(engineer)
+            employees.push(engineer);
             employeeMenu();
-        });
+          });
       } else {
-        inquirer.prompt([
-          {
-            type: "input",
-            name: "school",
-            message: "Please enter their school name: ",
-          },
-        ]).then(result => {
-            const intern = new Intern(response.name, response.id, response.email, result.school)
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "school",
+              message: "Please enter their school name: ",
+            },
+          ])
+          .then((result) => {
+            const intern = new Intern(
+              response.name,
+              response.id,
+              response.email,
+              result.school
+            );
 
-            employees.push(intern)
+            employees.push(intern);
             employeeMenu();
-        });
+          });
       }
     })
     .catch((error) => {
@@ -163,13 +177,18 @@ const createEmployee = (employeeType) => {
 };
 
 const buildHtml = () => {
-    const cards = employees.map((val) =>{
-        let currentEmployee = new card(val)
-        return currentEmployee.generateCard()
-    }).join("")
+  let htmlPage;
+  const cards = employees
+    .map((val) => {
+      let currentEmployee = new card(val);
+      return currentEmployee.generateCard();
+    })
+    .join("");
 
-    const htmlContent = () => {
-        let html = new HTML(cards)
-        return html.generateHtml()
-    }
-}
+  let htmlContent = new HTML(cards);
+  htmlPage = htmlContent.generateHtml();
+
+  fs.writeFile("./dist/index.html", htmlPage, (err) => {
+    err ? console.log(err) : console.log("index.html generated successfully");
+  });
+};
