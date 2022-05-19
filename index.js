@@ -4,7 +4,8 @@ const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const { type } = require("os");
+const card = require("./lib/CreateCard");
+const HTML = require("./lib/CreateHTML")
 
 const employees = [];
 
@@ -12,7 +13,7 @@ inquirer
   .prompt([
     {
       type: "input",
-      name: "managerName",
+      name: "name",
       message: "Please enter the manager's name: ",
       validate: function (input) {
         if (!input) {
@@ -24,7 +25,7 @@ inquirer
     },
     {
       type: "input",
-      name: "managerId",
+      name: "id",
       message: "Please enter the manager's Id: ",
       validate: function (input) {
         if (!input) {
@@ -36,7 +37,7 @@ inquirer
     },
     {
       type: "input",
-      name: "managerEmail",
+      name: "email",
       message: "Please enter the manager's Email: ",
     },
     {
@@ -56,9 +57,9 @@ inquirer
   ])
   .then((response) => {
     const manager = new Manager(
-      response.managerName,
-      response.managerId,
-      response.managerEmail,
+      response.name,
+      response.id,
+      response.email,
       response.officeNumber
     );
 
@@ -84,6 +85,7 @@ const employeeMenu = () => {
       if (response.type === "Finish") {
         console.log("team finished");
         console.log(employees);
+        buildHtml()
       } else {
         createEmployee(response.type);
       }
@@ -93,7 +95,7 @@ const employeeMenu = () => {
     });
 };
 
-const createEmployee = (typeEm) => {
+const createEmployee = (employeeType) => {
   return inquirer
     .prompt([
       {
@@ -127,7 +129,7 @@ const createEmployee = (typeEm) => {
       },
     ])
     .then((response) => {
-      if (typeEm === "Engineer") {
+      if (employeeType === "Engineer") {
         inquirer.prompt([
           {
             type: "input",
@@ -159,3 +161,15 @@ const createEmployee = (typeEm) => {
       console.log(error);
     });
 };
+
+const buildHtml = () => {
+    const cards = employees.map((val) =>{
+        let currentEmployee = new card(val)
+        return currentEmployee.generateCard()
+    }).join("")
+
+    const htmlContent = () => {
+        let html = new HTML(cards)
+        return html.generateHtml()
+    }
+}
