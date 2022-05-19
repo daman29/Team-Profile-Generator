@@ -93,116 +93,6 @@ const employeeMenu = () => {
     });
 };
 
-// const createEmployee = (type) => {
-//   if (type === "Engineer") {
-//     return inquirer
-//       .prompt([
-//         {
-//           type: "input",
-//           name: "name",
-//           message: "Please enter the employees's name",
-//           validate: function (input) {
-//             if (!input) {
-//               console.log("Please enter a valid name");
-//             } else {
-//               return true;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           name: "id",
-//           message: "Please enter the employee's Id",
-//           validate: function (input) {
-//             if (!input) {
-//               console.log("Please enter a valid Id");
-//             } else {
-//               return true;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           name: "email",
-//           message: "Please enter the employee's Email",
-//         },
-//         {
-//           type: "input",
-//           name: "github",
-//           message: "Please enter their GitHub username",
-//         },
-//       ])
-//       .then((response) => {
-//         const engineer = new Engineer(
-//           response.name,
-//           response.id,
-//           response.email,
-//           response.github
-//         );
-
-//         employees.push(engineer);
-
-//         employeeMenu();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   } else if (type === "Intern") {
-//     return inquirer
-//       .prompt([
-//         {
-//           type: "input",
-//           name: "name",
-//           message: "Please enter the employees's name",
-//           validate: function (input) {
-//             if (!input) {
-//               console.log("Please enter a valid name");
-//             } else {
-//               return true;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           name: "id",
-//           message: "Please enter the employee's Id",
-//           validate: function (input) {
-//             if (!input) {
-//               console.log("Please enter a valid Id");
-//             } else {
-//               return true;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           name: "email",
-//           message: "Please enter the employee's Email",
-//         },
-//         {
-//           type: "input",
-//           name: "school",
-//           message: "Please enter the school name",
-//         },
-//       ])
-//       .then((response) => {
-//         const intern = new Intern(
-//           response.name,
-//           response.id,
-//           response.email,
-//           response.school
-//         );
-
-//         employees.push(intern);
-
-//         employeeMenu();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }
-// };
-
 const createEmployee = (typeEm) => {
   return inquirer
     .prompt([
@@ -245,7 +135,7 @@ const createEmployee = (typeEm) => {
             message: "Please enter their GitHub username: ",
           },
         ]).then((result) => {            
-            const engineer = new Engineer(response.name, response.id, response.email, result)
+            const engineer = new Engineer(response.name, response.id, response.email, result.github)
 
             employees.push(engineer)
             employeeMenu();
@@ -258,7 +148,7 @@ const createEmployee = (typeEm) => {
             message: "Please enter their school name: ",
           },
         ]).then(result => {
-            const intern = new Intern(response.name, response.id, response.email, result)
+            const intern = new Intern(response.name, response.id, response.email, result.school)
 
             employees.push(intern)
             employeeMenu();
