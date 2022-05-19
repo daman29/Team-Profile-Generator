@@ -4,7 +4,7 @@
   "description": "terminal application to generate team profile",
   "main": "index.js",
   "scripts": {
-    "test": "run tests"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
