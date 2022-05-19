@@ -4,7 +4,7 @@
   "description": "terminal application to generate team profile",
   "main": "index.js",
   "scripts": {
-    "test": "npm tests"
+    "test": "run tests"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/daman29/Team-Profile-Generator#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.0"
   }
 }
